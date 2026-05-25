@@ -66,8 +66,10 @@ function weld() {
         if (fP.length !== 2) {alert("⚠ ERROR\n\nPlease select exactly TWO properties.");return;}
         else {
             var cn = fP[1]; var cnL = getLayerParent(cn); var cnP = getPropertyPath(cn);
-            exps = "var c = " + compPath + '.layer("' + cnL.name + '")' + cnP + ((cn.value instanceof Array) ? "[" + Number(bCVAY.value == true) + "];":";");
-            form = "b + (c * 0.01 * a)"
+            var cz = (base.length > 2) ? ", b[2]" : "";
+            exps = "var c = " + compPath + '.layer("' + cnL.name + '")' + cnP + ((cn.value instanceof Array && !(targ.value instanceof Array)) ? "[" + Number(bCVAY.value == true) + "];":";");
+
+            form =  (cn.value instanceof Array && targ.value instanceof Array) ?"[b[0] + (c[0] * 0.01 * a[0]), b[1] + (c[1] * 0.01 * a[1])" + cz + "]" : "b + (c * 0.01 * a)"
             alert("Connected: " + targ.name + " <== " + cnL.name);
         }
     }
